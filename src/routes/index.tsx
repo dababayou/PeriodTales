@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Calendar, Droplets, Activity, Heart, Sparkles, TrendingUp, Smile, Flame, Moon, Dumbbell } from "lucide-react";
+import { Calendar, Droplets, Droplet, Activity, Heart, Sparkles, TrendingUp, Smile, Flame, Moon, Dumbbell } from "lucide-react";
 import { CycleCalendar } from "@/components/CycleCalendar";
 import { StatCard } from "@/components/StatCard";
 import { HistoryList } from "@/components/HistoryList";
