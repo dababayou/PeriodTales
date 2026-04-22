@@ -155,6 +155,38 @@ function Index() {
           </div>
         </section>
 
+        {/* Wellness stats */}
+        <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+          <StatCard icon={Droplet} label="Air rata-rata" value={wStats.avgWater || "—"} unit={wStats.avgWater ? "gelas" : ""} />
+          <StatCard icon={Moon} label="Tidur rata-rata" value={wStats.avgSleep || "—"} unit={wStats.avgSleep ? "jam" : ""} accent="accent" />
+          <StatCard icon={Dumbbell} label="Olahraga rata-rata" value={wStats.avgExercise || "—"} unit={wStats.avgExercise ? "mnt" : ""} accent="muted" />
+          <StatCard icon={Flame} label="Streak harian" value={wStats.streak} unit="hari" accent="accent" />
+        </section>
+
+        {/* Wellness grid */}
+        <section className="grid lg:grid-cols-5 gap-6 mt-6">
+          <div className="lg:col-span-2 bg-card rounded-3xl p-6 border border-border shadow-[var(--shadow-card)]">
+            <div className="flex items-center gap-2 mb-4">
+              <Heart className="h-5 w-5 text-primary" />
+              <h3 className="text-lg font-semibold text-foreground">Catatan Hari Ini</h3>
+            </div>
+            <DailyWellnessForm todayLog={todayLog} onSave={handleSaveWellness} />
+          </div>
+
+          <div className="lg:col-span-3 bg-card rounded-3xl p-6 border border-border shadow-[var(--shadow-card)]">
+            <div className="flex items-center gap-2 mb-1">
+              <Smile className="h-5 w-5 text-primary" />
+              <h3 className="text-lg font-semibold text-foreground">Tren 7 Hari Terakhir</h3>
+            </div>
+            <p className="text-sm text-muted-foreground mb-5">
+              {wStats.topMood
+                ? `Mood paling sering: ${wStats.topMood.emoji} ${wStats.topMood.label}`
+                : "Belum ada catatan mood minggu ini"}
+            </p>
+            <WellnessTrend last7={wStats.last7} />
+          </div>
+        </section>
+
         <footer className="mt-12 text-center text-xs text-muted-foreground">
           Data tersimpan lokal di perangkat Anda. Prediksi berbasis rata-rata siklus.
         </footer>
