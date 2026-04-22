@@ -17,12 +17,12 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LunaFlow — Recap Periode Menstruasi Anda" },
+      { title: "CycleTrack — Recap Periode Menstruasi Anda" },
       {
         name: "description",
         content: "Lacak siklus menstruasi, gejala, mood, dan dapatkan prediksi periode berikutnya dengan lembut dan intuitif.",
       },
-      { property: "og:title", content: "LunaFlow — Recap Periode Menstruasi" },
+      { property: "og:title", content: "CycleTrack — Recap Periode Menstruasi" },
       { property: "og:description", content: "Lacak siklus, gejala & mood dengan tampilan yang tenang dan intuitif." },
     ],
   }),
@@ -82,7 +82,7 @@ function Index() {
               <Sparkles className="h-5 w-5 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-2xl font-semibold text-foreground tracking-tight">LunaFlow</h1>
+              <h1 className="text-2xl font-semibold text-foreground tracking-tight">CycleTrack</h1>
               <p className="text-sm text-muted-foreground">Recap & prediksi siklus Anda</p>
             </div>
           </div>
