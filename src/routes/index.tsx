@@ -1,13 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Calendar, Droplets, Activity, Heart, Sparkles, TrendingUp } from "lucide-react";
+import { Calendar, Droplets, Droplet, Activity, Heart, Sparkles, TrendingUp, Smile, Flame, Moon, Dumbbell } from "lucide-react";
 import { CycleCalendar } from "@/components/CycleCalendar";
 import { StatCard } from "@/components/StatCard";
 import { HistoryList } from "@/components/HistoryList";
 import { AddPeriodDialog } from "@/components/AddPeriodDialog";
+import { DailyWellnessForm } from "@/components/DailyWellnessForm";
+import { WellnessTrend } from "@/components/WellnessTrend";
 import {
   computeStats, formatDate, loadEntries, saveEntries, type PeriodEntry,
 } from "@/lib/cycle";
+import {
+  computeWellnessStats, loadWellness, saveWellness, todayKey, type WellnessLog,
+} from "@/lib/wellness";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,14 +31,18 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [entries, setEntries] = useState<PeriodEntry[]>([]);
+  const [wellness, setWellness] = useState<Record<string, WellnessLog>>({});
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setEntries(loadEntries());
+    setWellness(loadWellness());
     setMounted(true);
   }, []);
 
   const stats = useMemo(() => computeStats(entries), [entries]);
+  const wStats = useMemo(() => computeWellnessStats(wellness), [wellness]);
+  const todayLog = wellness[todayKey()];
 
   const handleAdd = (entry: PeriodEntry) => {
     const next = [...entries, entry];
@@ -45,6 +54,12 @@ function Index() {
     const next = entries.filter((e) => e.id !== id);
     setEntries(next);
     saveEntries(next);
+  };
+
+  const handleSaveWellness = (log: WellnessLog) => {
+    const next = { ...wellness, [log.date]: log };
+    setWellness(next);
+    saveWellness(next);
   };
 
   if (!mounted) {
@@ -137,6 +152,38 @@ function Index() {
               <h3 className="text-lg font-semibold text-foreground">Riwayat Periode</h3>
             </div>
             <HistoryList entries={entries} onDelete={handleDelete} />
+          </div>
+        </section>
+
+        {/* Wellness stats */}
+        <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+          <StatCard icon={Droplet} label="Air rata-rata" value={wStats.avgWater || "—"} unit={wStats.avgWater ? "gelas" : ""} />
+          <StatCard icon={Moon} label="Tidur rata-rata" value={wStats.avgSleep || "—"} unit={wStats.avgSleep ? "jam" : ""} accent="accent" />
+          <StatCard icon={Dumbbell} label="Olahraga rata-rata" value={wStats.avgExercise || "—"} unit={wStats.avgExercise ? "mnt" : ""} accent="muted" />
+          <StatCard icon={Flame} label="Streak harian" value={wStats.streak} unit="hari" accent="accent" />
+        </section>
+
+        {/* Wellness grid */}
+        <section className="grid lg:grid-cols-5 gap-6 mt-6">
+          <div className="lg:col-span-2 bg-card rounded-3xl p-6 border border-border shadow-[var(--shadow-card)]">
+            <div className="flex items-center gap-2 mb-4">
+              <Heart className="h-5 w-5 text-primary" />
+              <h3 className="text-lg font-semibold text-foreground">Catatan Hari Ini</h3>
+            </div>
+            <DailyWellnessForm todayLog={todayLog} onSave={handleSaveWellness} />
+          </div>
+
+          <div className="lg:col-span-3 bg-card rounded-3xl p-6 border border-border shadow-[var(--shadow-card)]">
+            <div className="flex items-center gap-2 mb-1">
+              <Smile className="h-5 w-5 text-primary" />
+              <h3 className="text-lg font-semibold text-foreground">Tren 7 Hari Terakhir</h3>
+            </div>
+            <p className="text-sm text-muted-foreground mb-5">
+              {wStats.topMood
+                ? `Mood paling sering: ${wStats.topMood.emoji} ${wStats.topMood.label}`
+                : "Belum ada catatan mood minggu ini"}
+            </p>
+            <WellnessTrend last7={wStats.last7} />
           </div>
         </section>
 
