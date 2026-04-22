@@ -31,14 +31,18 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [entries, setEntries] = useState<PeriodEntry[]>([]);
+  const [wellness, setWellness] = useState<Record<string, WellnessLog>>({});
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setEntries(loadEntries());
+    setWellness(loadWellness());
     setMounted(true);
   }, []);
 
   const stats = useMemo(() => computeStats(entries), [entries]);
+  const wStats = useMemo(() => computeWellnessStats(wellness), [wellness]);
+  const todayLog = wellness[todayKey()];
 
   const handleAdd = (entry: PeriodEntry) => {
     const next = [...entries, entry];
@@ -50,6 +54,12 @@ function Index() {
     const next = entries.filter((e) => e.id !== id);
     setEntries(next);
     saveEntries(next);
+  };
+
+  const handleSaveWellness = (log: WellnessLog) => {
+    const next = { ...wellness, [log.date]: log };
+    setWellness(next);
+    saveWellness(next);
   };
 
   if (!mounted) {
