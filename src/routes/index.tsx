@@ -1,13 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Calendar, Droplets, Activity, Heart, Sparkles, TrendingUp } from "lucide-react";
+import { Calendar, Droplets, Activity, Heart, Sparkles, TrendingUp, Smile, Flame, Moon, Dumbbell } from "lucide-react";
 import { CycleCalendar } from "@/components/CycleCalendar";
 import { StatCard } from "@/components/StatCard";
 import { HistoryList } from "@/components/HistoryList";
 import { AddPeriodDialog } from "@/components/AddPeriodDialog";
+import { DailyWellnessForm } from "@/components/DailyWellnessForm";
+import { WellnessTrend } from "@/components/WellnessTrend";
 import {
   computeStats, formatDate, loadEntries, saveEntries, type PeriodEntry,
 } from "@/lib/cycle";
+import {
+  computeWellnessStats, loadWellness, saveWellness, todayKey, type WellnessLog,
+} from "@/lib/wellness";
 
 export const Route = createFileRoute("/")({
   head: () => ({
