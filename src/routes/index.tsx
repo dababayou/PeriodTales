@@ -349,6 +349,7 @@ function Index() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="pl-10"
+                    autoComplete="email"
                     required
                   />
                 </div>
@@ -365,6 +366,7 @@ function Index() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="pl-10"
+                    autoComplete={isRegister ? "new-password" : "current-password"}
                     required
                   />
                 </div>
@@ -380,6 +382,7 @@ function Index() {
                       placeholder="Luna Clarissa"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
+                      autoComplete="name"
                       required
                     />
                   </div>
@@ -392,6 +395,7 @@ function Index() {
                       placeholder="lunaclara"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
+                      autoComplete="username"
                       required
                     />
                   </div>

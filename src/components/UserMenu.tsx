@@ -272,6 +272,7 @@ export function UserMenu() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10"
+                  autoComplete="email"
                   required
                 />
               </div>
@@ -288,6 +289,7 @@ export function UserMenu() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="pl-10"
+                  autoComplete={isRegister ? "new-password" : "current-password"}
                   required
                 />
               </div>
@@ -303,6 +305,7 @@ export function UserMenu() {
                     placeholder="Luna Clarissa"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
+                    autoComplete="name"
                     required
                   />
                 </div>
@@ -315,6 +318,7 @@ export function UserMenu() {
                     placeholder="lunaclara"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    autoComplete="username"
                     required
                   />
                 </div>
