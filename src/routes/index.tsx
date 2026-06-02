@@ -7,6 +7,9 @@ import { HistoryList } from "@/components/HistoryList";
 import { AddPeriodDialog } from "@/components/AddPeriodDialog";
 import { DailyWellnessForm } from "@/components/DailyWellnessForm";
 import { WellnessTrend } from "@/components/WellnessTrend";
+import { UserMenu } from "@/components/UserMenu";
+import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
 import {
   computeStats, formatDate, loadEntries, saveEntries, type PeriodEntry,
 } from "@/lib/cycle";
@@ -33,33 +36,181 @@ function Index() {
   const [entries, setEntries] = useState<PeriodEntry[]>([]);
   const [wellness, setWellness] = useState<Record<string, WellnessLog>>({});
   const [mounted, setMounted] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
+  // Monitor Supabase Auth Session
   useEffect(() => {
-    setEntries(loadEntries());
-    setWellness(loadWellness());
-    setMounted(true);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
+
+  // Fetch data from database if logged in, fallback to local storage
+  useEffect(() => {
+    async function loadData() {
+      if (user) {
+        try {
+          // Fetch period entries
+          const { data: dbEntries, error: entriesErr } = await supabase
+            .from("period_entries")
+            .select("*")
+            .order("start_date", { ascending: true });
+
+          if (entriesErr) throw entriesErr;
+
+          const formattedEntries: PeriodEntry[] = (dbEntries || []).map((e: any) => ({
+            id: e.id,
+            startDate: e.start_date,
+            endDate: e.end_date,
+            flow: e.flow,
+            symptoms: e.symptoms || [],
+            mood: e.mood,
+            notes: e.notes || undefined,
+          }));
+
+          // Fetch wellness logs
+          const { data: dbWellness, error: wellnessErr } = await supabase
+            .from("wellness_logs")
+            .select("*");
+
+          if (wellnessErr) throw wellnessErr;
+
+          const wellnessMap: Record<string, WellnessLog> = {};
+          (dbWellness || []).forEach((w: any) => {
+            wellnessMap[w.date] = {
+              date: w.date,
+              water: w.water,
+              sleep: Number(w.sleep),
+              exercise: w.exercise,
+              mood: w.mood || "",
+              energy: w.energy,
+              notes: w.notes || undefined,
+            };
+          });
+
+          setEntries(formattedEntries);
+          setWellness(wellnessMap);
+        } catch (err) {
+          console.error("Error loading data from Supabase:", err);
+          toast.error("Gagal menyinkronkan data dari cloud!");
+        }
+      } else {
+        // Guest mode fallback to local storage
+        setEntries(loadEntries());
+        setWellness(loadWellness());
+      }
+      setMounted(true);
+    }
+    loadData();
+  }, [user]);
 
   const stats = useMemo(() => computeStats(entries), [entries]);
   const wStats = useMemo(() => computeWellnessStats(wellness), [wellness]);
   const todayLog = wellness[todayKey()];
 
-  const handleAdd = (entry: PeriodEntry) => {
-    const next = [...entries, entry];
-    setEntries(next);
-    saveEntries(next);
+  const handleAdd = async (entry: PeriodEntry) => {
+    if (user) {
+      try {
+        const { data, error } = await supabase
+          .from("period_entries")
+          .insert({
+            user_id: user.id,
+            start_date: entry.startDate,
+            end_date: entry.endDate,
+            flow: entry.flow,
+            symptoms: entry.symptoms,
+            mood: entry.mood,
+            notes: entry.notes || null,
+          })
+          .select()
+          .single();
+
+        if (error) throw error;
+
+        const newEntry: PeriodEntry = {
+          id: data.id,
+          startDate: data.start_date,
+          endDate: data.end_date,
+          flow: data.flow,
+          symptoms: data.symptoms || [],
+          mood: data.mood,
+          notes: data.notes || undefined,
+        };
+
+        setEntries((prev) => [...prev, newEntry]);
+        toast.success("Catatan siklus disimpan ke cloud!");
+      } catch (err) {
+        console.error("Error saving period entry:", err);
+        toast.error("Gagal menyimpan ke database!");
+      }
+    } else {
+      const next = [...entries, entry];
+      setEntries(next);
+      saveEntries(next);
+      toast.success("Catatan siklus disimpan secara lokal!");
+    }
   };
 
-  const handleDelete = (id: string) => {
-    const next = entries.filter((e) => e.id !== id);
-    setEntries(next);
-    saveEntries(next);
+  const handleDelete = async (id: string) => {
+    if (user) {
+      try {
+        const { error } = await supabase
+          .from("period_entries")
+          .delete()
+          .eq("id", id);
+
+        if (error) throw error;
+        setEntries((prev) => prev.filter((e) => e.id !== id));
+        toast.success("Catatan siklus dihapus dari cloud!");
+      } catch (err) {
+        console.error("Error deleting period entry:", err);
+        toast.error("Gagal menghapus catatan!");
+      }
+    } else {
+      const next = entries.filter((e) => e.id !== id);
+      setEntries(next);
+      saveEntries(next);
+      toast.success("Catatan siklus dihapus secara lokal!");
+    }
   };
 
-  const handleSaveWellness = (log: WellnessLog) => {
-    const next = { ...wellness, [log.date]: log };
-    setWellness(next);
-    saveWellness(next);
+  const handleSaveWellness = async (log: WellnessLog) => {
+    if (user) {
+      try {
+        const { error } = await supabase
+          .from("wellness_logs")
+          .upsert({
+            user_id: user.id,
+            date: log.date,
+            water: log.water,
+            sleep: log.sleep,
+            exercise: log.exercise,
+            mood: log.mood || null,
+            energy: log.energy || 0,
+            notes: log.notes || null,
+          }, { onConflict: "user_id,date" });
+
+        if (error) throw error;
+        setWellness((prev) => ({ ...prev, [log.date]: log }));
+        toast.success("Catatan harian disimpan ke cloud!");
+      } catch (err) {
+        console.error("Error saving wellness log:", err);
+        toast.error("Gagal menyimpan catatan harian!");
+      }
+    } else {
+      const next = { ...wellness, [log.date]: log };
+      setWellness(next);
+      saveWellness(next);
+      toast.success("Catatan harian disimpan secara lokal!");
+    }
   };
 
   if (!mounted) {
@@ -86,7 +237,10 @@ function Index() {
               <p className="text-sm text-muted-foreground">Recap & prediksi siklus Anda</p>
             </div>
           </div>
-          <AddPeriodDialog onAdd={handleAdd} />
+          <div className="flex items-center gap-3">
+            <UserMenu />
+            <AddPeriodDialog onAdd={handleAdd} />
+          </div>
         </header>
 
         {/* Hero / Status banner */}
@@ -188,7 +342,7 @@ function Index() {
         </section>
 
         <footer className="mt-12 text-center text-xs text-muted-foreground">
-          Data tersimpan lokal di perangkat Anda. Prediksi berbasis rata-rata siklus.
+          {user ? "Data tersimpan aman di cloud database Supabase." : "Data tersimpan lokal di perangkat Anda (Masuk untuk menyimpan di cloud)."} Prediksi berbasis rata-rata siklus.
         </footer>
       </div>
     </div>
