@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Calendar, Droplets, Droplet, Activity, Heart, Sparkles, TrendingUp, Smile, Flame, Moon, Dumbbell } from "lucide-react";
+import { Calendar, Droplets, Droplet, Activity, Heart, Sparkles, TrendingUp, Smile, Flame, Moon, Dumbbell, LogIn, Mail, Lock, User } from "lucide-react";
 import { CycleCalendar } from "@/components/CycleCalendar";
 import { StatCard } from "@/components/StatCard";
 import { HistoryList } from "@/components/HistoryList";
@@ -10,6 +10,9 @@ import { WellnessTrend } from "@/components/WellnessTrend";
 import { UserMenu } from "@/components/UserMenu";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import {
   computeStats, formatDate, loadEntries, saveEntries, type PeriodEntry,
 } from "@/lib/cycle";
@@ -37,6 +40,14 @@ function Index() {
   const [wellness, setWellness] = useState<Record<string, WellnessLog>>({});
   const [mounted, setMounted] = useState(false);
   const [user, setUser] = useState<any>(null);
+
+  // Auth Form States for Landing Page
+  const [isRegister, setIsRegister] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
+  const [authLoading, setAuthLoading] = useState(false);
 
   // Monitor Supabase Auth Session
   useEffect(() => {
@@ -213,8 +224,207 @@ function Index() {
     }
   };
 
+  const handleLandingAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      toast.error("Silakan isi semua kolom!");
+      return;
+    }
+
+    setAuthLoading(true);
+    try {
+      if (isRegister) {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              full_name: fullName || email.split("@")[0],
+              username: username || email.split("@")[0],
+              avatar_url: `https://api.dicebear.com/7.x/adventurer/svg?seed=${encodeURIComponent(email)}`,
+            },
+          },
+        });
+        if (error) throw error;
+        toast.success("Registrasi berhasil! Silakan cek email Anda untuk konfirmasi.");
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        if (error) throw error;
+        toast.success("Berhasil masuk!");
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Terjadi kesalahan!");
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
   if (!mounted) {
     return <div className="min-h-screen bg-background" />;
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-background relative overflow-hidden flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+        {/* Decorative background blobs */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+          <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-primary/15 blur-3xl" />
+          <div className="absolute top-1/2 left-1/4 w-80 h-80 rounded-full bg-accent/20 blur-3xl" />
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-primary/10 blur-3xl" />
+        </div>
+
+        <div className="max-w-5xl mx-auto w-full grid md:grid-cols-12 gap-8 items-center">
+          {/* Welcome Info Panel */}
+          <div className="md:col-span-7 space-y-6 text-left">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "var(--gradient-primary)" }}>
+                <Sparkles className="h-6 w-6 text-primary-foreground" />
+              </div>
+              <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+                CycleTrack
+              </h1>
+            </div>
+            
+            <h2 className="text-2xl font-semibold text-foreground leading-snug">
+              Lacak, kelola, dan pahami siklus menstruasi Anda dengan cerdas.
+            </h2>
+            <p className="text-base text-muted-foreground max-w-lg">
+              Sebuah platform recap menstruasi intuitif untuk mencatat gejala harian, melacak mood, mengukur aktivitas hidrasi/tidur, dan memprediksi siklus berikutnya secara aman.
+            </p>
+
+            <div className="space-y-4 pt-4">
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-xl bg-primary/10 text-primary">
+                  <Calendar className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm text-foreground">Kalender Siklus Otomatis</h3>
+                  <p className="text-xs text-muted-foreground">Prediksi fase menstruasi, folikuler, ovulasi, dan luteal berbasis data historis.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-xl bg-accent/10 text-accent">
+                  <TrendingUp className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm text-foreground">Statistik & Tren Kebugaran</h3>
+                  <p className="text-xs text-muted-foreground">Lacak tingkat hidrasi, durasi tidur, dan olahraga harian Anda secara berkesinambungan.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-xl bg-primary/10 text-primary">
+                  <Heart className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm text-foreground">Perlindungan Data Aman</h3>
+                  <p className="text-xs text-muted-foreground">Semua data Anda tersimpan aman dan terenkripsi di dalam cloud database Supabase.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Inline Auth Card Panel */}
+          <div className="md:col-span-5 bg-card rounded-3xl p-6 border border-border shadow-[var(--shadow-card)] backdrop-blur-sm bg-card/90">
+            <h2 className="text-xl font-bold tracking-tight text-foreground text-center mb-1">
+              {isRegister ? "Buat Akun Baru" : "Masuk ke Akun Anda"}
+            </h2>
+            <p className="text-xs text-muted-foreground text-center mb-6">
+              {isRegister ? "Mulai sinkronisasi data siklus Anda ke cloud" : "Akses riwayat menstruasi Anda dari perangkat apa saja"}
+            </p>
+
+            <form onSubmit={handleLandingAuth} className="space-y-4">
+              <div className="space-y-1.5">
+                <Label htmlFor="landing-email">Alamat Email</Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground pointer-events-none" />
+                  <Input
+                    id="landing-email"
+                    type="email"
+                    placeholder="name@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="landing-password">Kata Sandi</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground pointer-events-none" />
+                  <Input
+                    id="landing-password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10"
+                    required
+                  />
+                </div>
+              </div>
+
+              {isRegister && (
+                <>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="landing-fullName">Nama Lengkap</Label>
+                    <Input
+                      id="landing-fullName"
+                      type="text"
+                      placeholder="Luna Clarissa"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label htmlFor="landing-username">Username</Label>
+                    <Input
+                      id="landing-username"
+                      type="text"
+                      placeholder="lunaclara"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                  </div>
+                </>
+              )}
+
+              <Button type="submit" className="w-full mt-4 rounded-xl shadow-[var(--shadow-soft)]" disabled={authLoading}>
+                {authLoading ? "Memproses..." : isRegister ? "Daftar Akun" : "Masuk"}
+              </Button>
+            </form>
+
+            <div className="text-center text-xs text-muted-foreground mt-4 pt-2 border-t border-border/60">
+              {isRegister ? "Sudah punya akun?" : "Belum punya akun?"}{" "}
+              <button
+                onClick={() => {
+                  setIsRegister(!isRegister);
+                  setEmail(""); setPassword(""); setFullName(""); setUsername("");
+                }}
+                className="text-primary hover:underline font-semibold focus:outline-none"
+              >
+                {isRegister ? "Masuk di sini" : "Daftar di sini"}
+              </button>
+            </div>
+
+            {isRegister && (
+              <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/30 rounded-xl text-[10px] text-amber-800 dark:text-amber-300 leading-relaxed">
+                ⚠️ <strong>Catatan penting</strong>: Jika pendaftaran stuck, pastikan Anda memverifikasi email Anda, atau matikan opsi <strong>"Confirm email"</strong> di dashboard <strong>Supabase &rarr; Authentication &rarr; Providers &rarr; Email</strong> untuk akses langsung tanpa verifikasi email!
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

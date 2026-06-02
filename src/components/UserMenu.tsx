@@ -15,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -254,6 +255,9 @@ export function UserMenu() {
             <DialogTitle className="text-2xl font-bold tracking-tight text-center">
               {isRegister ? "Buat Akun Baru" : "Masuk ke CycleTrack"}
             </DialogTitle>
+            <DialogDescription className="sr-only">
+              Masuk atau buat akun baru untuk menyinkronkan data menstruasi Anda.
+            </DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleAuth} className="space-y-4 py-3">
@@ -339,6 +343,9 @@ export function UserMenu() {
         <DialogContent className="max-w-md p-6">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold tracking-tight">Ubah Profil Anda</DialogTitle>
+            <DialogDescription className="sr-only">
+              Perbarui informasi profil Anda seperti nama lengkap, username, dan gambar avatar.
+            </DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleUpdateProfile} className="space-y-4 py-3">
