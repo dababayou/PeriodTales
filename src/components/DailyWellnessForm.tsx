@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { MOOD_OPTIONS } from "@/lib/cycle";
 import { todayKey, type WellnessLog } from "@/lib/wellness";
+import { HydrationPlant } from "./HydrationPlant";
 
 type Props = {
   todayLog?: WellnessLog;
@@ -58,21 +59,7 @@ export function DailyWellnessForm({ todayLog, onSave }: Props) {
             {water} <span className="text-muted-foreground font-normal">gelas</span>
           </span>
         </div>
-        <div className="flex gap-1.5 flex-wrap">
-          {Array.from({ length: 10 }).map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setWater(i + 1 === water ? i : i + 1)}
-              className={`w-7 h-9 rounded-md border transition-all ${
-                i < water
-                  ? "bg-primary border-primary"
-                  : "bg-card border-border hover:border-primary/40"
-              }`}
-              aria-label={`${i + 1} gelas`}
-            />
-          ))}
-        </div>
+        <HydrationPlant water={water} onChange={setWater} />
       </div>
 
       {/* Sleep */}
