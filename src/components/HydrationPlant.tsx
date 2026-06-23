@@ -3,14 +3,13 @@ import { Droplet, Undo2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-import tumbuh1 from "./assets/tumbuh1.png";
-import tumbuh2 from "./assets/tumbuh2.png";
-import tumbuh3 from "./assets/tumbuh3.png";
-import tumbuh4 from "./assets/tumbuh4.png";
-import tumbuh5 from "./assets/tumbuh5.png";
-import tumbuh6 from "./assets/tumbuh6.png";
+import tmbh1 from "./assets/tmbh1.PNG";
+import tmbh2 from "./assets/tmbh2.PNG";
+import tmbh3 from "./assets/tmbh3.PNG";
+import tmbh4 from "./assets/tmbh4.PNG";
+import tmbh5 from "./assets/tmbh5.PNG";
 
-const IMAGES = [tumbuh1, tumbuh2, tumbuh3, tumbuh4, tumbuh5, tumbuh6];
+const IMAGES = [tmbh1, tmbh2, tmbh3, tmbh4, tmbh5];
 
 type Props = {
   water: number;
@@ -21,14 +20,13 @@ export function HydrationPlant({ water, onChange }: Props) {
   const [isWatering, setIsWatering] = useState(false);
   const [isBouncing, setIsBouncing] = useState(false);
 
-  // Map 0 to 10+ glasses into 6 stages (0 to 5 index)
+  // Map 0 to 8+ glasses into 5 stages (0 to 4 index)
   // Stage 0: 0-1 glasses
   // Stage 1: 2-3 glasses
   // Stage 2: 4-5 glasses
   // Stage 3: 6-7 glasses
-  // Stage 4: 8-9 glasses
-  // Stage 5: 10+ glasses
-  const stageIndex = Math.min(Math.floor(water / 2), 5);
+  // Stage 4: 8+ glasses
+  const stageIndex = Math.min(Math.floor(water / 2), 4);
   const currentImage = IMAGES[stageIndex];
 
   const handleWater = () => {
