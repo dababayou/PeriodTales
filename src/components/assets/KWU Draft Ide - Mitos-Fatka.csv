@@ -1,0 +1,109 @@
+No,Mitos,Fakta,Bukti Sitasi
+1,"""Wanita profesional harus tetap produktif stabil setiap hari.""","Fluktuasi hormon estrogen dan progesteron sepanjang siklus secara nyata memengaruhi neurotransmiter dopamin dan serotonin — artinya energi dan fokus Anda memang berubah secara biologis, bukan karena Anda malas. Memahami pola ini justru memungkinkan Anda cycle sync jadwal kerja agar lebih efisien.","(Barth et al., Psychoneuroendocrinology, 2015; Hillerer et al., Frontiers in Neuroendocrinology, 2014)"
+2,"""PMS itu normal, jadi harus ditahan saja.""","PMS memang umum, tapi bukan berarti harus diabaikan."" Terapi farmakologis berbasis SSRI dosis rendah (seperti fluoksetin) atau progestogen siklik terbukti efektif mengurangi gejala berat yang mengganggu fungsi kerja. Konsultasi ke apotek atau dokter bisa membuka opsi manajemen nyata.","(ACOG Practice Bulletin No. 155, 2015; Yonkers et al., American Journal of Psychiatry, 2008)"
+3,"""Nyeri haid adalah tanda wanita kuat — kalau minum obat berarti lemah.""","Dismenore primer terjadi karena lonjakan prostaglandin yang memicu kontraksi uterus intens. NSAID seperti ibuprofen bekerja langsung menghambat COX-1/COX-2 sehingga produksi prostaglandin turun — ini mekanisme farmakologi, bukan tanda kelemahan. Menahan nyeri justru menurunkan konsentrasi dan performa kerja secara terukur.","(Marjoribanks et al., Cochrane Database, 2015; BPOM RI, Informasi Obat Nasional Indonesia, 2020)"
+4,"""Siklus berantakan karena kerja keras itu konsekuensi sukses, bukan masalah kesehatan.""","Stres kerja kronis meningkatkan kortisol yang menekan aksis hipotalamus–hipofisis–ovarium (HPO), mengganggu sekresi GnRH, dan menyebabkan siklus tidak teratur hingga amenore fungsional. Ini bukan ""konsekuensi sukses"" — ini sinyal farmakodinamik tubuh yang perlu ditangani sebelum jadi masalah hormonal jangka panjang.","(Hamidovic et al., Stress, 2020; Fenster et al., Epidemiology, 1999)"
+5,"""Mood swing saat haid berarti saya tidak profesional.""","Perubahan mood pramenstruasi dipicu oleh fluktuasi progesteron yang memengaruhi reseptor GABA-A di otak — bukan karakter kepribadian Anda. Suplemen magnesium glisinat 200–400 mg/hari terbukti mereduksi iritabilitas praменstruasi melalui modulasi neurotransmiter, bukan sekadar placebo.","(Facchinetti et al., Obstetrics & Gynecology, 1991; Parazzini et al., European Journal of Obstetrics & Gynecology, 2017)"
+6,"""Semua wanita punya siklus 28 hari.""","Siklus normal berkisar 21–35 hari dan bervariasi antar individu maupun antar siklus pada orang yang sama. Penggunaan kontrasepsi hormonal (pil kombinasi, suntik, implan) juga secara farmakologis mengubah pola dan durasi siklus — sehingga ""28 hari"" hanyalah rata-rata populasi, bukan standar individual.","(Munster et al., British Journal of Obstetrics & Gynaecology, 1992; WHO, Medical Eligibility Criteria for Contraceptive Use, 5th ed., 2015)"
+7,"""Minum kopi banyak saat haid aman-aman saja, malah bikin semangat kerja.""","Kafein menghambat adenosin dan meningkatkan kadar kortisol, yang pada fase luteal justru memperparah ketegangan payudara, kecemasan, dan dismenore. Konsumsi kafein >300 mg/hari juga berinteraksi dengan metabolisme estrogen via enzim CYP1A2, memengaruhi konsentrasi hormon dalam darah.","(Nagata et al., American Journal of Epidemiology, 2005; Linos et al., Cancer Causes & Control, 2010)"
+8,"""Pembalut herbal/charcoal lebih aman dan sehat daripada pembalut biasa.""","BPOM RI belum menetapkan standar uji klinis khusus untuk klaim ""herbal"" pada pembalut; beberapa produk mengandung pewangi dan ekstrak botanis yang justru meningkatkan risiko dermatitis vulva dan mengganggu pH vagina (normal 3,8–4,5). Efek farmakologis klaim ""detoks"" melalui kulit vulva tidak didukung data absorpsi perkutan yang valid.","(BPOM RI, Siaran Pers Pengawasan Alat Kesehatan, 2018; Farage & Maibach, Vulvar Health and Disease, 2006)"
+9,"""Obat cuci vagina (douching) bisa melancarkan haid dan membersihkan total.""","Douching mengganggu flora Lactobacillus yang menjaga pH vagina, meningkatkan risiko bacterial vaginosis, dan tidak memengaruhi siklus menstruasi sama sekali secara farmakologis. Produk ini tidak punya mekanisme aksi yang relevan terhadap regulasi hormonal atau pengeluaran endometrium.","(Klebanoff et al., Sexually Transmitted Diseases, 2010; ACOG Committee Opinion No. 602, 2014)"
+10,"""Jamu pelancar haid dari apotek/warung aman dipakai rutin untuk haid tidak teratur.""",Banyak jamu pelancar haid mengandung simplisia bersifat emenagog (seperti Carica papaya biji atau Curcuma domestica dosis tinggi) yang mekanismenya belum terstandarisasi secara farmakokinetik. Penggunaan rutin tanpa diagnosis penyebab ketidakteraturan siklus berisiko menutupi kondisi mendasar seperti PCOS atau hipotiroidisme.,"(Elfahmi et al., Journal of Herbal Medicine, 2014; BPOM RI, Pedoman Keamanan Jamu, 2021)"
+11,"""Pil KB bikin siklus jadi normal dan cocok untuk semua wanita.""","Pil kontrasepsi kombinasi memang menstabilkan perdarahan, tapi bukan berarti ""menyembuhkan"" penyebab siklus tidak teratur. Efektivitas dan tolerabilitasnya sangat bergantung pada profil hormonal individu, dan beberapa wanita mengalami breakthrough bleeding, penurunan libido, atau perubahan mood akibat kandungan progestogen sintetis tertentu.","(Zethraeus et al., Fertility and Sterility, 2017; Maybin & Critchley, Human Reproduction Update, 2015)"
+12,"""Minum suplemen zat besi saat haid tidak diperlukan kecuali anemia berat.""",Wanita pekerja yang kehilangan darah >80 mL per siklus (menoragia) berisiko defisiensi besi sublinis yang memengaruhi fungsi kognitif dan stamina kerja bahkan sebelum anemia terdeteksi di lab. Suplementasi zat besi (ferro sulfat 325 mg atau ferro bisglisinat) terbukti memperbaiki konsentrasi dan energi pada kelompok ini.,"(Bruner et al., Lancet, 1996; Zimmermann & Hurrell, Lancet, 2007)"
+13,"""Antasida atau obat maag bisa diminum bebas saat haid tanpa masalah.""",Antasida berbasis kalsium atau magnesium hidroksida dapat menghambat absorpsi ibuprofen dan suplemen zat besi jika diminum bersamaan — interaksi farmakokinetik ini nyata dan sering diabaikan. Jarak minimal 2 jam antara antasida dan NSAID atau suplemen besi sangat dianjurkan untuk mempertahankan efektivitasnya.,"(Nix et al., Journal of Clinical Pharmacology, 1992; Stockley's Drug Interactions, 12th ed., 2022)"
+14,"""Kerja shift malam tidak memengaruhi siklus menstruasi selama makan dan tidur cukup.""","Paparan cahaya malam mengganggu ritme sirkadian dan menekan produksi melatonin, yang secara langsung terlibat dalam regulasi pulsatil GnRH. Studi pada perawat dan pekerja pabrik shift malam menunjukkan peningkatan signifikan kejadian siklus tidak teratur, dismenore berat, dan perpanjangan fase folikuler.","(Lawson et al., Epidemiology, 2011; Barger et al., Journal of Biological Rhythms, 2015)"
+15,"""Paracetamol lebih baik dari ibuprofen untuk nyeri haid karena lebih aman di lambung.""","Untuk dismenore primer, ibuprofen (NSAID) secara mekanisme jauh lebih tepat karena langsung menghambat sintesis prostaglandin penyebab nyeri, sementara paracetamol hanya bekerja sentral dan tidak memengaruhi prostaglandin uterus. Risiko lambung ibuprofen dapat diminimalisir dengan diminum bersama makanan atau dalam durasi pendek (1–3 hari); keduanya tersedia bebas di apotek Indonesia.","(Marjoribanks et al., Cochrane Database, 2015; PIONAS BPOM, Informatorium Obat Nasional Indonesia, 2022)"
+format json,"[
+  {
+    ""id"": 1,
+    ""mitos"": ""Wanita profesional harus tetap produktif stabil setiap hari."",
+    ""fakta"": ""Fluktuasi hormon estrogen dan progesteron sepanjang siklus secara nyata memengaruhi neurotransmiter dopamin dan serotonin — artinya energi dan fokus Anda memang berubah secara biologis, bukan karena Anda malas. Memahami pola ini justru memungkinkan Anda cycle sync jadwal kerja agar lebih efisien.",
+    ""sumber"": ""(Barth et al., Psychoneuroendocrinology, 2015; Hillerer et al., Frontiers in Neuroendocrinology, 2014)""
+  },
+  {
+    ""id"": 2,
+    ""mitos"": ""PMS itu normal, jadi harus ditahan saja."",
+    ""fakta"": ""PMS memang umum, tapi bukan berarti harus diabaikan. Terapi farmakologis berbasis SSRI dosis rendah (seperti fluoksetin) atau progestogen siklik terbukti efektif mengurangi gejala berat yang mengganggu fungsi kerja. Konsultasi ke apotek atau dokter bisa membuka opsi manajemen nyata."",
+    ""sumber"": ""(ACOG Practice Bulletin No. 155, 2015; Yonkers et al., American Journal of Psychiatry, 2008)""
+  },
+  {
+    ""id"": 3,
+    ""mitos"": ""Nyeri haid adalah tanda wanita kuat — kalau minum obat berarti lemah."",
+    ""fakta"": ""Dismenore primer terjadi karena lonjakan prostaglandin yang memicu kontraksi uterus intens. NSAID seperti ibuprofen bekerja langsung menghambat COX-1/COX-2 sehingga produksi prostaglandin turun — ini mekanisme farmakologi, bukan tanda kelemahan. Menahan nyeri justru menurunkan konsentrasi dan performa kerja secara terukur."",
+    ""sumber"": ""(Marjoribanks et al., Cochrane Database, 2015; BPOM RI, Informasi Obat Nasional Indonesia, 2020)""
+  },
+{
+    ""id"": 4,
+    ""mitos"": ""Siklus berantakan karena kerja keras itu konsekuensi sukses, bukan masalah kesehatan."",
+    ""fakta"": ""Stres kerja kronis meningkatkan kortisol yang menekan aksis hipotalamus–hipofisis–ovarium (HPO), mengganggu sekresi GnRH, dan menyebabkan siklus tidak teratur hingga amenore fungsional. Ini bukan {'konsekuensi sukses'} namun ini sinyal farmakodinamik tubuh yang perlu ditangani sebelum jadi masalah hormonal jangka panjang."",
+    ""sumber"": ""(Hamidovic et al., Stress, 2020; Fenster et al., Epidemiology, 1999)""
+  },
+{
+    ""id"": 5,
+    ""mitos"": ""Mood swing saat haid berarti saya tidak profesional."",
+    ""fakta"": ""Perubahan mood pramenstruasi dipicu oleh fluktuasi progesteron yang memengaruhi reseptor GABA-A di otak — bukan karakter kepribadian Anda. Suplemen magnesium glisinat 200–400 mg/hari terbukti mereduksi iritabilitas praменstruasi melalui modulasi neurotransmiter, bukan sekadar placebo."",
+    ""sumber"": ""(Facchinetti et al., Obstetrics & Gynecology, 1991; Parazzini et al., European Journal of Obstetrics & Gynecology, 2017)""
+  },
+{
+    ""id"": 6,
+    ""mitos"": ""Semua wanita punya siklus 28 hari."",
+    ""fakta"": ""Siklus normal berkisar 21–35 hari dan bervariasi antar individu maupun antar siklus pada orang yang sama. Penggunaan kontrasepsi hormonal (pil kombinasi, suntik, implan) juga secara farmakologis mengubah pola dan durasi siklus — sehingga {'28 hari'} hanyalah rata-rata populasi, bukan standar individual."",
+    ""sumber"": ""(Munster et al., British Journal of Obstetrics & Gynaecology, 1992; WHO, Medical Eligibility Criteria for Contraceptive Use, 5th ed., 2015)""
+  },
+{
+    ""id"": 7,
+    ""mitos"": ""Minum kopi banyak saat haid aman-aman saja, malah bikin semangat kerja."",
+    ""fakta"": ""Kafein menghambat adenosin dan meningkatkan kadar kortisol, yang pada fase luteal justru memperparah ketegangan payudara, kecemasan, dan dismenore. Konsumsi kafein >300 mg/hari juga berinteraksi dengan metabolisme estrogen via enzim CYP1A2, memengaruhi konsentrasi hormon dalam darah."",
+    ""sumber"": ""(Nagata et al., American Journal of Epidemiology, 2005; Linos et al., Cancer Causes & Control, 2010)""
+  },
+{
+    ""id"": 8,
+    ""mitos"": ""Minum kopi banyak saat haid aman-aman saja, malah bikin semangat kerja."",
+    ""fakta"": ""Kafein menghambat adenosin dan meningkatkan kadar kortisol, yang pada fase luteal justru memperparah ketegangan payudara, kecemasan, dan dismenore. Konsumsi kafein >300 mg/hari juga berinteraksi dengan metabolisme estrogen via enzim CYP1A2, memengaruhi konsentrasi hormon dalam darah."",
+    ""sumber"": ""(Nagata et al., American Journal of Epidemiology, 2005; Linos et al., Cancer Causes & Control, 2010)""
+  },
+{
+    ""id"": 9,
+    ""mitos"": ""Obat cuci vagina (douching) bisa melancarkan haid dan membersihkan total."",
+    ""fakta"": ""Douching mengganggu flora Lactobacillus yang menjaga pH vagina, meningkatkan risiko bacterial vaginosis, dan tidak memengaruhi siklus menstruasi sama sekali secara farmakologis. Produk ini tidak punya mekanisme aksi yang relevan terhadap regulasi hormonal atau pengeluaran endometrium."",
+    ""sumber"": ""(Klebanoff et al., Sexually Transmitted Diseases, 2010; ACOG Committee Opinion No. 602, 2014)""
+  },
+{
+    ""id"": 10,
+    ""mitos"": ""Jamu pelancar haid dari apotek/warung aman dipakai rutin untuk haid tidak teratur."",
+    ""fakta"": ""Banyak jamu pelancar haid mengandung simplisia bersifat emenagog (seperti Carica papaya biji atau Curcuma domestica dosis tinggi) yang mekanismenya belum terstandarisasi secara farmakokinetik. Penggunaan rutin tanpa diagnosis penyebab ketidakteraturan siklus berisiko menutupi kondisi mendasar seperti PCOS atau hipotiroidisme."",
+    ""sumber"": ""(Elfahmi et al., Journal of Herbal Medicine, 2014; BPOM RI, Pedoman Keamanan Jamu, 2021)""
+  },
+{
+    ""id"": 11,
+    ""mitos"": ""Pil KB bikin siklus jadi normal dan cocok untuk semua wanita."",
+    ""fakta"": ""Pil kontrasepsi kombinasi memang menstabilkan perdarahan, tapi bukan berarti 'menyembuhkan' penyebab siklus tidak teratur. Efektivitas dan tolerabilitasnya sangat bergantung pada profil hormonal individu, dan beberapa wanita mengalami breakthrough bleeding, penurunan libido, atau perubahan mood akibat kandungan progestogen sintetis tertentu."",
+    ""sumber"": ""(Zethraeus et al., Fertility and Sterility, 2017; Maybin & Critchley, Human Reproduction Update, 2015)""
+  },
+{
+    ""id"": 12,
+    ""mitos"": ""Minum suplemen zat besi saat haid tidak diperlukan kecuali anemia berat."",
+    ""fakta"": ""Wanita pekerja yang kehilangan darah >80 mL per siklus (menoragia) berisiko defisiensi besi sublinis yang memengaruhi fungsi kognitif dan stamina kerja bahkan sebelum anemia terdeteksi di lab. Suplementasi zat besi (ferro sulfat 325 mg atau ferro bisglisinat) terbukti memperbaiki konsentrasi dan energi pada kelompok ini."",
+    ""sumber"": ""(Bruner et al., Lancet, 1996; Zimmermann & Hurrell, Lancet, 2007)""
+  },
+{
+    ""id"": 13,
+    ""mitos"": ""Antasida atau obat maag bisa diminum bebas saat haid tanpa masalah."",
+    ""fakta"": ""Antasida berbasis kalsium atau magnesium hidroksida dapat menghambat absorpsi ibuprofen dan suplemen zat besi jika diminum bersamaan — interaksi farmakokinetik ini nyata dan sering diabaikan. Jarak minimal 2 jam antara antasida dan NSAID atau suplemen besi sangat dianjurkan untuk mempertahankan efektivitasnya."",
+    ""sumber"": ""(Nix et al., Journal of Clinical Pharmacology, 1992; Stockley's Drug Interactions, 12th ed., 2022)""
+  },
+{
+    ""id"": 14,
+    ""mitos"": ""Kerja shift malam tidak memengaruhi siklus menstruasi selama makan dan tidur cukup."",
+    ""fakta"": ""Paparan cahaya malam mengganggu ritme sirkadian dan menekan produksi melatonin, yang secara langsung terlibat dalam regulasi pulsatil GnRH. Studi pada perawat dan pekerja pabrik shift malam menunjukkan peningkatan signifikan kejadian siklus tidak teratur, dismenore berat, dan perpanjangan fase folikuler."",
+    ""sumber"": ""(Lawson et al., Epidemiology, 2011; Barger et al., Journal of Biological Rhythms, 2015)""
+  },
+{
+    ""id"": 15,
+    ""mitos"": ""Paracetamol lebih baik dari ibuprofen untuk nyeri haid karena lebih aman di lambung."",
+    ""fakta"": ""Untuk dismenore primer, ibuprofen (NSAID) secara mekanisme jauh lebih tepat karena langsung menghambat sintesis prostaglandin penyebab nyeri, sementara paracetamol hanya bekerja sentral dan tidak memengaruhi prostaglandin uterus. Risiko lambung ibuprofen dapat diminimalisir dengan diminum bersama makanan atau dalam durasi pendek (1–3 hari); keduanya tersedia bebas di apotek Indonesia."",
+    ""sumber"": ""(Marjoribanks et al., Cochrane Database, 2015; PIONAS BPOM, Informatorium Obat Nasional Indonesia, 2022)""
+  }
+
+]",

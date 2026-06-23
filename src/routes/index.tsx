@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Calendar, Droplets, Droplet, Activity, Heart, Sparkles, TrendingUp, Smile, Flame, Moon, Dumbbell, LogIn, Mail, Lock, User } from "lucide-react";
+import { Calendar, Droplets, Droplet, Activity, Heart, Sparkles, TrendingUp, Smile, Flame, Moon, Dumbbell, LogIn, Mail, Lock, User, BookOpen } from "lucide-react";
 import { CycleCalendar } from "@/components/CycleCalendar";
 import { StatCard } from "@/components/StatCard";
 import { HistoryList } from "@/components/HistoryList";
@@ -8,6 +8,9 @@ import { AddPeriodDialog } from "@/components/AddPeriodDialog";
 import { DailyWellnessForm } from "@/components/DailyWellnessForm";
 import { WellnessTrend } from "@/components/WellnessTrend";
 import { UserMenu } from "@/components/UserMenu";
+import { MythFlashcard } from "@/components/MythFlashcard";
+import { MythsModal } from "@/components/MythsModal";
+import { MYTHS_FACTS } from "@/lib/myths";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
@@ -48,6 +51,12 @@ function Index() {
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
+
+  // Myths State
+  const [isMythsModalOpen, setIsMythsModalOpen] = useState(false);
+  const dailyMyth = useMemo(() => {
+    return MYTHS_FACTS[new Date().getDate() % MYTHS_FACTS.length];
+  }, []);
 
   // Monitor Supabase Auth Session
   useEffect(() => {
@@ -555,10 +564,44 @@ function Index() {
           </div>
         </section>
 
+        {/* Myth vs Fact Section */}
+        <section className="mt-8 bg-card rounded-3xl p-6 md:p-8 border border-border shadow-[var(--shadow-card)] relative overflow-hidden">
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-500/10 dark:bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col md:flex-row gap-8 items-center">
+            <div className="flex-1 space-y-4 text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400 text-xs font-semibold mb-2">
+                <BookOpen className="h-3.5 w-3.5" />
+                Edukasi Menstruasi
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
+                Mitos vs Fakta Hari Ini
+              </h3>
+              <p className="text-muted-foreground leading-relaxed max-w-md">
+                Banyak mitos beredar seputar siklus menstruasi. Balik kartu di samping untuk menemukan fakta medisnya, atau jelajahi seluruh koleksi mitos dan fakta yang kami kumpulkan!
+              </p>
+              <div className="pt-2">
+                <Button 
+                  onClick={() => setIsMythsModalOpen(true)}
+                  className="rounded-xl bg-amber-600 hover:bg-amber-700 text-white shadow-[var(--shadow-soft)] transition-all hover:scale-105"
+                >
+                  Jelajahi Semua Mitos
+                </Button>
+              </div>
+            </div>
+            
+            <div className="w-full md:w-80 shrink-0 relative z-10">
+              <MythFlashcard data={dailyMyth} />
+            </div>
+          </div>
+        </section>
+
         <footer className="mt-12 text-center text-xs text-muted-foreground">
           {user ? "Data tersimpan aman di cloud database Supabase." : "Data tersimpan lokal di perangkat Anda (Masuk untuk menyimpan di cloud)."} Prediksi berbasis rata-rata siklus.
         </footer>
       </div>
+
+      <MythsModal isOpen={isMythsModalOpen} onClose={() => setIsMythsModalOpen(false)} />
     </div>
   );
 }
