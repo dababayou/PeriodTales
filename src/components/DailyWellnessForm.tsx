@@ -10,10 +10,12 @@ import { HydrationPlant } from "./HydrationPlant";
 type Props = {
   todayLog?: WellnessLog;
   onSave: (log: WellnessLog) => void;
+  onAutoSaveWater?: (water: number, coins: number) => void;
 };
 
-export function DailyWellnessForm({ todayLog, onSave }: Props) {
+export function DailyWellnessForm({ todayLog, onSave, onAutoSaveWater }: Props) {
   const [water, setWater] = useState(0);
+  const [coins, setCoins] = useState(0);
   const [sleep, setSleep] = useState(7);
   const [exercise, setExercise] = useState(0);
   const [mood, setMood] = useState("tenang");
@@ -24,6 +26,7 @@ export function DailyWellnessForm({ todayLog, onSave }: Props) {
   useEffect(() => {
     if (todayLog) {
       setWater(todayLog.water);
+      setCoins(todayLog.coins || 0);
       setSleep(todayLog.sleep);
       setExercise(todayLog.exercise);
       setMood(todayLog.mood || "tenang");
@@ -36,6 +39,7 @@ export function DailyWellnessForm({ todayLog, onSave }: Props) {
     onSave({
       date: todayKey(),
       water,
+      coins,
       sleep,
       exercise,
       mood,
@@ -59,7 +63,15 @@ export function DailyWellnessForm({ todayLog, onSave }: Props) {
             {water} <span className="text-muted-foreground font-normal">gelas</span>
           </span>
         </div>
-        <HydrationPlant water={water} onChange={setWater} />
+        <HydrationPlant 
+          water={water} 
+          coins={coins}
+          onChange={(newWater, newCoins) => {
+            setWater(newWater);
+            setCoins(newCoins);
+            if (onAutoSaveWater) onAutoSaveWater(newWater, newCoins);
+          }} 
+        />
       </div>
 
       {/* Sleep */}

@@ -8,6 +8,7 @@ export type WellnessLog = {
   mood: string; // mood value
   energy: number; // 1-5
   notes?: string;
+  coins?: number; // total coins earned today
 };
 
 const STORAGE_KEY = "lunaflow-wellness-v1";
@@ -48,6 +49,7 @@ function seedWellness(): Record<string, WellnessLog> {
       exercise: Math.floor(Math.random() * 45),
       mood: moods[6 - i],
       energy: 2 + Math.floor(Math.random() * 4),
+      coins: 0,
     };
   }
   saveWellness(data);
@@ -77,6 +79,7 @@ export function computeWellnessStats(data: Record<string, WellnessLog>): Wellnes
         exercise: 0,
         mood: "",
         energy: 0,
+        coins: 0,
       }
     );
   }

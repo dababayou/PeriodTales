@@ -11,6 +11,7 @@ import { UserMenu } from "@/components/UserMenu";
 import { MythFlashcard } from "@/components/MythFlashcard";
 import { MythsModal } from "@/components/MythsModal";
 import { SubscriptionBanner } from "@/components/SubscriptionBanner";
+import koin1 from "@/components/assets/koin1.png";
 import { MYTHS_FACTS } from "@/lib/myths";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
@@ -451,7 +452,7 @@ function Index() {
 
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-6xl">
         {/* Header */}
-        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
+        <header className="sticky top-2 sm:top-4 z-50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10 bg-background/85 backdrop-blur-lg p-4 rounded-2xl shadow-[var(--shadow-card)] border border-border/50 transition-all">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-2xl flex items-center justify-center" style={{ background: "var(--gradient-primary)" }}>
               <Sparkles className="h-5 w-5 text-primary-foreground" />
@@ -462,6 +463,10 @@ function Index() {
             </div>
           </div>
           <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 bg-amber-100/90 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 px-3 py-1.5 rounded-full text-sm font-bold shadow-sm border border-amber-200/50 cursor-default">
+              <img src={koin1} className="w-5 h-5 object-contain" alt="Coin Icon" />
+              <span>{todayLog?.coins || 0}</span>
+            </div>
             <UserMenu />
             <AddPeriodDialog onAdd={handleAdd} />
           </div>
@@ -551,7 +556,22 @@ function Index() {
               <Heart className="h-5 w-5 text-primary" />
               <h3 className="text-lg font-semibold text-foreground">Catatan Hari Ini</h3>
             </div>
-            <DailyWellnessForm todayLog={todayLog} onSave={handleSaveWellness} />
+            <DailyWellnessForm 
+              todayLog={todayLog} 
+              onSave={handleSaveWellness} 
+              onAutoSaveWater={(water, coins) => {
+                const logToSave = todayLog || {
+                  date: todayKey(),
+                  water: 0,
+                  sleep: 7,
+                  exercise: 0,
+                  mood: "tenang",
+                  energy: 3,
+                  coins: 0,
+                };
+                handleSaveWellness({ ...logToSave, water, coins });
+              }}
+            />
           </div>
 
           <div className="lg:col-span-3 bg-card rounded-3xl p-6 border border-border shadow-[var(--shadow-card)]">

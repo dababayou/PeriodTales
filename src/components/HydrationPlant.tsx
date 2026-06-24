@@ -22,15 +22,15 @@ const KOINS = [koin1, koin2, koin3, koin4, koin5, koin6, koin7];
 
 type Props = {
   water: number;
-  onChange: (newWater: number) => void;
+  coins?: number;
+  onChange: (newWater: number, newCoins: number) => void;
 };
 
-export function HydrationPlant({ water, onChange }: Props) {
+export function HydrationPlant({ water, coins = 0, onChange }: Props) {
   const [isWatering, setIsWatering] = useState(false);
   const [isBouncing, setIsBouncing] = useState(false);
   const [showCoin, setShowCoin] = useState(false);
   const [coinFrame, setCoinFrame] = useState(0);
-  const [coins, setCoins] = useState(0);
 
   // Map 0 to 8+ glasses into 5 stages (0 to 4 index)
   const stageIndex = Math.min(Math.floor(water / 2), 4);
@@ -58,14 +58,13 @@ export function HydrationPlant({ water, onChange }: Props) {
 
     setTimeout(() => {
       setIsWatering(false);
-      onChange(water + 1);
+      onChange(water + 1, coins + 1);
     }, 1000);
 
     setTimeout(() => {
       setIsBouncing(false);
       // Start coin animation
       setShowCoin(true);
-      setCoins(c => c + 1);
     }, 1300);
 
     // End coin animation
@@ -76,10 +75,7 @@ export function HydrationPlant({ water, onChange }: Props) {
 
   const handleUndo = () => {
     if (water > 0) {
-      onChange(water - 1);
-    }
-    if (coins > 0) {
-      setCoins(c => c - 1);
+      onChange(water - 1, Math.max(0, coins - 1));
     }
   };
 
