@@ -115,6 +115,7 @@ function Index() {
               mood: w.mood || "",
               energy: w.energy,
               notes: w.notes || undefined,
+              coins: w.coins || 0,
             };
           });
 
@@ -204,7 +205,7 @@ function Index() {
     }
   };
 
-  const handleSaveWellness = async (log: WellnessLog) => {
+  const handleSaveWellness = async (log: WellnessLog, silent = false) => {
     if (user) {
       try {
         const { error } = await supabase
@@ -218,20 +219,21 @@ function Index() {
             mood: log.mood || null,
             energy: log.energy || 0,
             notes: log.notes || null,
+            coins: log.coins || 0,
           }, { onConflict: "user_id,date" });
 
         if (error) throw error;
         setWellness((prev) => ({ ...prev, [log.date]: log }));
-        toast.success("Catatan harian disimpan ke cloud!");
+        if (!silent) toast.success("Catatan harian disimpan ke cloud!");
       } catch (err) {
         console.error("Error saving wellness log:", err);
-        toast.error("Gagal menyimpan catatan harian!");
+        if (!silent) toast.error("Gagal menyimpan catatan harian!");
       }
     } else {
       const next = { ...wellness, [log.date]: log };
       setWellness(next);
       saveWellness(next);
-      toast.success("Catatan harian disimpan secara lokal!");
+      if (!silent) toast.success("Catatan harian disimpan secara lokal!");
     }
   };
 
@@ -569,7 +571,7 @@ function Index() {
                   energy: 3,
                   coins: 0,
                 };
-                handleSaveWellness({ ...logToSave, water, coins });
+                handleSaveWellness({ ...logToSave, water, coins }, true);
               }}
             />
           </div>
