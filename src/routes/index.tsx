@@ -10,6 +10,7 @@ import { WellnessTrend } from "@/components/WellnessTrend";
 import { UserMenu } from "@/components/UserMenu";
 import { MythFlashcard } from "@/components/MythFlashcard";
 import { MythsModal } from "@/components/MythsModal";
+import { SubscriptionBanner } from "@/components/SubscriptionBanner";
 import { MYTHS_FACTS } from "@/lib/myths";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
@@ -465,6 +466,9 @@ function Index() {
             <AddPeriodDialog onAdd={handleAdd} />
           </div>
         </header>
+
+        {/* Subscription Banner */}
+        <SubscriptionBanner />
 
         {/* Hero / Status banner */}
         <section
