@@ -31,6 +31,41 @@ export function HydrationPlant({ water, coins = 0, onChange }: Props) {
   const [isBouncing, setIsBouncing] = useState(false);
   const [showCoin, setShowCoin] = useState(false);
   const [coinFrame, setCoinFrame] = useState(0);
+  const [lastWateredAt, setLastWateredAt] = useState<number>(0);
+  const [timeRemaining, setTimeRemaining] = useState<number>(0);
+
+  // Load last watered time
+  useEffect(() => {
+    const stored = localStorage.getItem("lunaflow-last-watered");
+    if (stored) {
+      setLastWateredAt(parseInt(stored, 10));
+    }
+  }, []);
+
+  // Update timer
+  useEffect(() => {
+    if (lastWateredAt > 0) {
+      const updateTimer = () => {
+        const elapsed = Date.now() - lastWateredAt;
+        const thirtyMins = 30 * 60 * 1000;
+        if (elapsed >= thirtyMins) {
+          setTimeRemaining(0);
+        } else {
+          setTimeRemaining(thirtyMins - elapsed);
+        }
+      };
+      updateTimer(); // Initial call
+      const interval = setInterval(updateTimer, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [lastWateredAt]);
+
+  const formatTime = (ms: number) => {
+    const totalSeconds = Math.floor(ms / 1000);
+    const m = Math.floor(totalSeconds / 60);
+    const s = totalSeconds % 60;
+    return `${m}:${s.toString().padStart(2, "0")}`;
+  };
 
   // Map 0 to 8+ glasses into 5 stages (0 to 4 index)
   const stageIndex = Math.min(Math.floor(water / 2), 4);
@@ -70,12 +105,18 @@ export function HydrationPlant({ water, coins = 0, onChange }: Props) {
     // End coin animation
     setTimeout(() => {
       setShowCoin(false);
+      const now = Date.now();
+      setLastWateredAt(now);
+      localStorage.setItem("lunaflow-last-watered", now.toString());
     }, 2300); // 1 second of flipping coin
   };
 
   const handleUndo = () => {
     if (water > 0) {
       onChange(water - 1, Math.max(0, coins - 1));
+      setLastWateredAt(0);
+      setTimeRemaining(0);
+      localStorage.removeItem("lunaflow-last-watered");
     }
   };
 
@@ -166,11 +207,17 @@ export function HydrationPlant({ water, coins = 0, onChange }: Props) {
         <Button 
           type="button"
           onClick={handleWater}
-          disabled={isWatering || showCoin}
+          disabled={isWatering || showCoin || timeRemaining > 0}
           className="h-12 px-8 rounded-full font-semibold gap-2 shadow-[var(--shadow-soft)] transition-all hover:scale-105 active:scale-95 text-md"
         >
-          <Droplet className="h-5 w-5" />
-          Siram Tanaman
+          {timeRemaining > 0 ? (
+            `Tunggu ${formatTime(timeRemaining)}`
+          ) : (
+            <>
+              <Droplet className="h-5 w-5" />
+              Siram Tanaman
+            </>
+          )}
         </Button>
       </div>
       
