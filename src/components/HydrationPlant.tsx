@@ -16,9 +16,11 @@ import koin4 from "./assets/koin4.png";
 import koin5 from "./assets/koin5.png";
 import koin6 from "./assets/koin6.png";
 import koin7 from "./assets/koin7.png";
+import coinSoundFile from "./assets/coinsound.mp3";
 
 const IMAGES = [tmbh1, tmbh2, tmbh3, tmbh4, tmbh5];
 const KOINS = [koin1, koin2, koin3, koin4, koin5, koin6, koin7];
+const coinAudio = typeof window !== 'undefined' ? new Audio(coinSoundFile) : null;
 
 type Props = {
   water: number;
@@ -84,6 +86,11 @@ export function HydrationPlant({ water, coins = 0, onChange }: Props) {
   }, [showCoin]);
 
   const handleWater = () => {
+    if (coinAudio) {
+      coinAudio.volume = 0.7; // Not too loud
+      coinAudio.load(); // Helps unlock audio context on mobile
+    }
+    
     setIsWatering(true);
     
     // Plant bounce starts slightly after water animation starts
@@ -100,6 +107,10 @@ export function HydrationPlant({ water, coins = 0, onChange }: Props) {
       setIsBouncing(false);
       // Start coin animation
       setShowCoin(true);
+      if (coinAudio) {
+        coinAudio.currentTime = 0;
+        coinAudio.play().catch(e => console.log("Audio play error:", e));
+      }
     }, 1300);
 
     // End coin animation
